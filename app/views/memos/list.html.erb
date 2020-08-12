@@ -1,0 +1,35 @@
+<div class="main memos-index">
+  <div class="container">
+    <% if @memos.count >= 1 %>
+      <% @memos.each do |memo| %>
+        <div class="memos-index-item">
+          <p>
+            <%= memo.created_at.to_s(:datetime_jp) %>
+          </p>
+          <div class="memos-item-content">
+            <%= memo.content %>
+          </div>
+          <% if memo.like == 1 %>
+            <%= link_to("/memos/#{memo.id}/unlike", {method: "post"}) do %>
+              <span class="fa fa-heart like-btn-unlike"></span>
+            <% end %>
+          <% else %>
+            <%= link_to("/memos/#{memo.id}/like", {method: "post"}) do %>
+              <span class="fa fa-heart like-btn"></span>
+            <% end %>
+          <% end %>
+          <div class="memo-menus">
+            <%= link_to("編集", "/memos/#{memo.id}/edit") %>
+            <%= link_to("削除", "/memos/#{memo.id}/destroy", {method: "post"}) %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="memos-index-item">
+        <div class="memos-item-content">
+            <%= "メモがまだありません" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
